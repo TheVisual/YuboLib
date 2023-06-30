@@ -70,6 +70,7 @@ namespace SnapchatLib
     {
         IExampleEndpoint Examples { get; }
         ISignEndpoint Sign { get; }
+        ILoginEndpoint Login { get; }
         Task<HttpResponseMessage> Send(string url, HttpRequestMessage request, bool useProxyClient = true);
         Task<HttpResponseMessage> SendPut(string url, HttpRequestMessage request, bool useProxyClient = false);
         HttpClient webClient { get; set; }
@@ -91,6 +92,7 @@ namespace SnapchatLib
         internal readonly IClientLogger m_Logger;
         public ISignEndpoint Sign { get; }
         public IExampleEndpoint Examples { get; }
+        public ILoginEndpoint Login { get; }
 
 
         internal YuboHttpClient(YuboClient Client, IClientLogger logger, IUtilities utilities, IRequestConfigurator configurator)
@@ -101,7 +103,7 @@ namespace SnapchatLib
 
             Examples = new ExampleEndpoint(Client, this, YuboConfig, logger, utilities, configurator);
             Sign = new SignEndpoint(Client, this, YuboConfig, logger, utilities, configurator);
-
+            Login = new LoginEndpoint(Client, this, YuboConfig, logger, utilities, configurator);
             SetupClients();
         }
 

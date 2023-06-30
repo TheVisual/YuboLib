@@ -37,7 +37,7 @@ internal interface IRequestConfigurator
 
 internal class RequestConfigurator : IRequestConfigurator
 {
-    internal static string ApiBaseEndpoint => "https://app.snapchat.com";
+    internal static string ApiBaseEndpoint => "https://mobile.yellw.co";
     internal static string AcceptEncodingHeaderName => "Accept-Encoding";
     internal static string AcceptHeaderName => "Accept";
     internal static string AcceptLanguageHeaderName => "Accept-Language";
@@ -121,9 +121,7 @@ internal class RequestConfigurator : IRequestConfigurator
         request.Headers.TryAddWithoutValidation("user-agent", signResult.headers.UserAgent);
         request.Headers.TryAddWithoutValidation("x-errors", signResult.headers.XErrors);
         request.Headers.TryAddWithoutValidation("x-yellow-token", signResult.headers.XYellowToken);
-
-
-        parameters.Add("none", signResult.request_body.nonce);
+        parameters.Add("nonce", signResult.request_body.nonce);
         parameters.Add("signature", signResult.request_body.signature);
         if (ismulti)
         {

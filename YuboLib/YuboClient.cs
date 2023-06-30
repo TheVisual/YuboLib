@@ -84,4 +84,10 @@ public class YuboClient : IDisposable
     }
     #endregion
 
+    #region Login
+    public virtual async Task<string> Login(string exampleparams)
+    {
+        return await HttpClient.Login.Login(exampleparams);
+    }
+    #endregion
 }
