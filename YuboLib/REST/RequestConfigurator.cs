@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 using System.Threading.Tasks;
 using YuboLib.Exceptions;
 using YuboLib.Extras;
@@ -101,14 +102,13 @@ internal class RequestConfigurator : IRequestConfigurator
     private async Task<HttpRequestMessage> GenerateRequest(IYuboHttpClient client, RequestConfiguration configuration, EndpointInfo endpointInfo, Dictionary<string, string> parameters, bool ismulti)
     {
         var request = await CreateRequest(client, configuration, endpointInfo);
-
-        // We only sign on POST
-        var signResult = m_Utilities.JsonDeserializeObject<SignJson>(await client.Sign.SignRequest());
+        var signResult = m_Utilities.JsonDeserializeObject<SignJson>(await client.Sign.SignRequest());;
 
         m_Logger.Debug("Trying to add sign headers to request");
         request.Headers.UserAgent.Clear();
         if (signResult == null)
             throw new SignerException("Could not deserialize SignRequest response");
+
 
         request.Headers.TryAddWithoutValidation("x-brand-encoded", signResult.headers.XBrandEncoded);
         request.Headers.TryAddWithoutValidation("x-device-model-encoded", signResult.headers.XDeviceModelEncoded);
@@ -135,11 +135,9 @@ internal class RequestConfigurator : IRequestConfigurator
         }
         else
         {
-            var content = new FormUrlEncodedContent(parameters);
-            content.Headers.ContentType.CharSet = "utf-8";
-            request.Content = content;
+            request.Content = new StringContent(m_Utilities.JsonSerializeObject(parameters), Encoding.UTF8, "application/json");
         }
-
+        
         return request;
     }
 }

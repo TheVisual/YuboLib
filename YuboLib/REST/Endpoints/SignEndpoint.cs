@@ -25,8 +25,12 @@ internal class SignEndpoint : EndpointAccessor, ISignEndpoint
     internal static HttpResponseMessage response { get; set; }
     private void RaiseForInvalidValues()
     {
+        if (string.IsNullOrEmpty(Config.ApiKey))
+            new Exception("ApiKey is required");
 
-        
+        if (string.IsNullOrEmpty(Config.Username))
+            new Exception("Username is required");
+
         if (string.IsNullOrEmpty(Config.android_id) || string.IsNullOrEmpty(Config.ro_build_id) || string.IsNullOrEmpty(Config.ro_build_version_release) || string.IsNullOrEmpty(Config.ro_product_brand) || string.IsNullOrEmpty(Config.ro_product_model))
             throw new Exception("Phone Stuff is required");
 
@@ -60,9 +64,17 @@ internal class SignEndpoint : EndpointAccessor, ISignEndpoint
         };
         request.Content = new StringContent(m_Utilities.JsonSerializeObject(sign_json), Encoding.UTF8, "application/json");
 
-
+        if (Config.ProxySigner)
+        {
+            response = await HttpClient.Send(DefaultSignUrl, request, true);
+        }
+        else
+        {
+            response = await HttpClient.Send(DefaultSignUrl, request, false);
+        }
 
         var responseData = await response.Content.ReadAsStringAsync();
+
         if (response.StatusCode != HttpStatusCode.OK)
             throw new SignerException(responseData);
 
