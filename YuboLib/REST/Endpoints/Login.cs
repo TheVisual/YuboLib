@@ -13,7 +13,7 @@ public interface ILoginEndpoint
 
 internal class LoginEndpoint : EndpointAccessor, ILoginEndpoint
 {
-    internal static readonly EndpointInfo LoginEdnpoint = new()
+    internal static readonly EndpointInfo _LoginEndpoint = new()
     {
         Url = "/login",
         BaseEndpoint = RequestConfigurator.ApiBaseEndpoint,
@@ -31,7 +31,7 @@ internal class LoginEndpoint : EndpointAccessor, ILoginEndpoint
             {"type", "username" },
             {"password", password },
         };
-        var response = await Send(LoginEdnpoint, parameters);
+        var response = await Send(_LoginEndpoint, parameters);
         return m_Utilities.JsonDeserializeObject<string>(await response.Content.ReadAsStringAsync());
     }
 }
