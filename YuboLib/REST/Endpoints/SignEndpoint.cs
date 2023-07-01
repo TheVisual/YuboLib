@@ -42,7 +42,7 @@ internal class SignEndpoint : EndpointAccessor, ISignEndpoint
         var request = new HttpRequestMessage(HttpMethod.Post, DefaultSignUrl);
         request.Version = HttpVersion.Version20;
         request.VersionPolicy = HttpVersionPolicy.RequestVersionExact;
-        request.Headers.TryAddWithoutValidation("x-auth", Config.ApiKey);
+        request.Headers.TryAddWithoutValidation("x-license", Config.ApiKey);
         var sign_json = new SerializeSign { 
             device = new Device 
             { 
