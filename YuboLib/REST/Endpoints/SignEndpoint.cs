@@ -47,6 +47,7 @@ internal class SignEndpoint : EndpointAccessor, ISignEndpoint
         request.Version = HttpVersion.Version20;
         request.VersionPolicy = HttpVersionPolicy.RequestVersionExact;
         request.Headers.TryAddWithoutValidation("x-license", Config.ApiKey);
+        request.Headers.TryAddWithoutValidation("User-Agent", "Yubo/Public");
         var sign_json = new SerializeSign { 
             device = new Device 
             { 
