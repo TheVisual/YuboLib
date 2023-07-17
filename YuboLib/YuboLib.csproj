@@ -22,11 +22,4 @@
       <DebugType>full</DebugType>
 	  <DebugSymbols>true</DebugSymbols>
     </PropertyGroup>
-    <ItemGroup>
-        <InternalsVisibleTo Include="SnapchatLib.Tests" />
-        <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
-    </ItemGroup>
-    <ItemGroup>
-      <Folder Include="Encryption\" />
-    </ItemGroup>
 </Project>

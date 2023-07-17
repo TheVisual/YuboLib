@@ -39,7 +39,7 @@ internal abstract class EndpointAccessor
 
     protected virtual async Task<HttpResponseMessage> Send(EndpointInfo endpointInfo, HttpContent streamContent, bool isMulti = false)
     {
-        var request = await m_Configurator.Configure(endpointInfo, streamContent, HttpMethod.Post, YuboClient, HttpClient, isMulti);
+        var request = m_Configurator.Configure(endpointInfo, streamContent, HttpMethod.Post, YuboClient, HttpClient, isMulti);
         return await HttpClient.Send(endpointInfo.Url, request);
     }
 
@@ -47,7 +47,7 @@ internal abstract class EndpointAccessor
     {
         using var fileStreamContent = new StreamContent(stream);
 
-        var request = await m_Configurator.Configure(endpointInfo, fileStreamContent, HttpMethod.Put, YuboClient, HttpClient);
+        var request = m_Configurator.Configure(endpointInfo, fileStreamContent, HttpMethod.Put, YuboClient, HttpClient);
 
         m_Logger.Debug($"Calling SendPut to {endpointInfo.Url}. Request Version: {request.Version}. Request Url: {request.RequestUri}");
         return await HttpClient.SendPut(endpointInfo.Url, request, !Config.BandwithSaver);

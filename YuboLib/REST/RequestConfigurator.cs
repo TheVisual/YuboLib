@@ -32,7 +32,7 @@ internal struct EndpointInfo
 
 internal interface IRequestConfigurator
 {
-    Task<HttpRequestMessage> Configure(EndpointInfo endpointInfo, HttpContent content, HttpMethod httpMethod, YuboClient client, IYuboHttpClient httpClient, bool isMulti = false);
+    HttpRequestMessage Configure(EndpointInfo endpointInfo, HttpContent content, HttpMethod httpMethod, YuboClient client, IYuboHttpClient httpClient, bool isMulti = false);
     Task<HttpRequestMessage> Configure(EndpointInfo endpointInfo, Dictionary<string, string> parameters, HttpMethod httpMethod, YuboClient client, IYuboHttpClient httpClient, bool isMulti = false);
 }
 
@@ -57,10 +57,10 @@ internal class RequestConfigurator : IRequestConfigurator
         m_Utilities = utilities;
     }
 
-    public async Task<HttpRequestMessage> Configure(EndpointInfo endpointInfo, HttpContent content, HttpMethod httpMethod, YuboClient client, IYuboHttpClient httpClient, bool isMulti = false)
+    public HttpRequestMessage Configure(EndpointInfo endpointInfo, HttpContent content, HttpMethod httpMethod, YuboClient client, IYuboHttpClient httpClient, bool isMulti = false)
     {
         var config = CreateConfig(endpointInfo, httpMethod, client, isMulti);
-        return await GenerateRequest(httpClient, config, endpointInfo, content);
+        return GenerateRequest(httpClient, config, endpointInfo, content);
     }
 
     public async Task<HttpRequestMessage> Configure(EndpointInfo endpointInfo, Dictionary<string, string> parameters, HttpMethod httpMethod, YuboClient client, IYuboHttpClient httpClient, bool isMulti = false)
@@ -81,7 +81,7 @@ internal class RequestConfigurator : IRequestConfigurator
         return config;
     }
 
-    private async Task<HttpRequestMessage> CreateRequest(IYuboHttpClient client, RequestConfiguration configuration, EndpointInfo endpointInfo)
+    private HttpRequestMessage CreateRequest(IYuboHttpClient client, RequestConfiguration configuration, EndpointInfo endpointInfo)
     {
         var baseEndpoint = endpointInfo.BaseEndpoint;
         var url = baseEndpoint + configuration.Endpoint;
@@ -91,9 +91,9 @@ internal class RequestConfigurator : IRequestConfigurator
         return request;
     }
 
-    private async Task<HttpRequestMessage> GenerateRequest(IYuboHttpClient client, RequestConfiguration configuration, EndpointInfo endpointInfo, HttpContent content)
+    private HttpRequestMessage GenerateRequest(IYuboHttpClient client, RequestConfiguration configuration, EndpointInfo endpointInfo, HttpContent content)
     {
-        var request = await CreateRequest(client, configuration, endpointInfo);
+        var request = CreateRequest(client, configuration, endpointInfo);
 
         request.Content = content;
         return request;
@@ -101,7 +101,7 @@ internal class RequestConfigurator : IRequestConfigurator
 
     private async Task<HttpRequestMessage> GenerateRequest(IYuboHttpClient client, RequestConfiguration configuration, EndpointInfo endpointInfo, Dictionary<string, string> parameters, bool ismulti)
     {
-        var request = await CreateRequest(client, configuration, endpointInfo);
+        var request = CreateRequest(client, configuration, endpointInfo);
         var signResult = m_Utilities.JsonDeserializeObject<SignJson>(await client.Sign.SignRequest());;
 
         m_Logger.Debug("Trying to add sign headers to request");

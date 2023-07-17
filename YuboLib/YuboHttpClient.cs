@@ -75,7 +75,6 @@ namespace SnapchatLib
         Task<HttpResponseMessage> SendPut(string url, HttpRequestMessage request, bool useProxyClient = false);
         HttpClient webClient { get; set; }
         HttpClient m_UnproxiedHttpClient { get; }
-        Task DownloadImageAsync(string directoryPath, string fileName, Uri uri);
         Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, bool useProxiedClient);
     }
 
@@ -194,12 +193,6 @@ namespace SnapchatLib
             m_Logger.Debug($"Endpoint: {endpoint}");
             m_Logger.Debug($"Status Code: {response.StatusCode}");
 
-            var resp = await response.Content.ReadAsStringAsync();
-            if (resp.Contains("Due to repeated attempts or other suspicious"))
-            {
-                throw new RateLimitedException();
-            }
-
             if (response.IsSuccessStatusCode) return;
 
             // Custom messages for bad status codes
@@ -220,17 +213,6 @@ namespace SnapchatLib
                 default:
                     throw new FailedHttpRequestException(response.StatusCode, await response.Content.ReadAsStringAsync());
             }
-        }
-
-        public async Task DownloadImageAsync(string directoryPath, string fileName, Uri uri)
-        {
-            // Create file path and ensure directory exists
-            var path = Path.Combine(directoryPath, fileName);
-            Directory.CreateDirectory(directoryPath);
-
-            // Download the image and write to the file
-            var imageBytes = await webClient.GetByteArrayAsync(uri);
-            await File.WriteAllBytesAsync(path, imageBytes);
         }
     }
 }
