@@ -22,4 +22,4 @@
 - YOU ARE LIABLE FOR YOUR ACTIONS!
 
 # Private Signer
-- The Public signer is very limited in terms of speed and ratelimits in future so you can purchase the private API emailing me @ YuboLib@proton.me
+- The Public signer is very limited in terms of speed and ratelimits in future so you can purchase the private API emailing me @ WXVib0xpYkBwcm90b24ubWU= (Base64 decode it for the email (https://www.base64decode.org/))
