@@ -16,7 +16,7 @@ internal interface ISignEndpoint
 
 internal class SignEndpoint : EndpointAccessor, ISignEndpoint
 {
-    internal const string DefaultSignUrl = "https://private.signer.sh/yubo/sign";
+    internal const string DefaultSignUrl = "https://public.signer.sh/yubo/sign";
 
     public SignEndpoint(YuboClient client, IYuboHttpClient httpClient, YuboLockedConfig config, IClientLogger logger, IUtilities utilities, IRequestConfigurator configurator) : base(client, httpClient, config, logger, utilities, configurator)
     {

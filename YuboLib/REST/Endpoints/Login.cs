@@ -3,12 +3,13 @@ using System.Threading.Tasks;
 using YuboLib.Extras;
 using YuboLib.REST;
 using YuboLib;
+using static YuboLib.Models.LoginModel;
 
 namespace SnapchatLib.REST.Endpoints;
 
 public interface ILoginEndpoint
 {
-    Task<string> Login(string password);
+    Task<LoginResponse> Login(string password);
 }
 
 internal class LoginEndpoint : EndpointAccessor, ILoginEndpoint
@@ -23,7 +24,7 @@ internal class LoginEndpoint : EndpointAccessor, ILoginEndpoint
     {
     }
 
-    public async Task<string> Login(string password)
+    public async Task<LoginResponse> Login(string password)
     {
         var parameters = new Dictionary<string, string>
         {
@@ -32,6 +33,6 @@ internal class LoginEndpoint : EndpointAccessor, ILoginEndpoint
             {"password", password },
         };
         var response = await Send(_LoginEndpoint, parameters);
-        return m_Utilities.JsonDeserializeObject<string>(await response.Content.ReadAsStringAsync());
+        return m_Utilities.JsonDeserializeObject<LoginResponse>(await response.Content.ReadAsStringAsync());
     }
 }

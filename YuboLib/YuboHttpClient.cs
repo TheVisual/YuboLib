@@ -195,6 +195,8 @@ namespace SnapchatLib
 
             if (response.IsSuccessStatusCode) return;
 
+            if (endpoint == "/login" && response.StatusCode == HttpStatusCode.Forbidden) return;
+
             // Custom messages for bad status codes
             switch (response.StatusCode)
             {

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using YuboLib.Extras;
+using YuboLib.Models;
 using YuboLib.REST;
+using static YuboLib.Models.LoginModel;
 
 namespace YuboLib;
 
@@ -85,7 +87,7 @@ public class YuboClient : IDisposable
     #endregion
 
     #region Login
-    public virtual async Task<string> Login(string password)
+    public virtual async Task<LoginResponse> Login(string password)
     {
         return await HttpClient.Login.Login(password);
     }
