@@ -23,6 +23,6 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
     - name: Build
-      run: dotnet build YuboLib --no-restore
+      run: dotnet build YuboLib/YuboLib.sln --no-restore
     - name: Test
-      run: dotnet test YuboLib --no-build --verbosity normal
+      run: dotnet test YuboLib/YuboLib.sln --no-build --verbosity normal
