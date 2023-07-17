@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text.Json;
 using YuboLib.Exceptions;
 
@@ -22,6 +23,21 @@ internal interface IUtilities
 internal class Utilities : IUtilities
 {
     private readonly Random m_Random = new();
+
+    public class AndroidIDGenerator
+    {
+        public static string GenerateAndroidID()
+        {
+            using (var rng = RandomNumberGenerator.Create())
+            {
+                var bytes = new byte[8];
+                rng.GetBytes(bytes);
+
+                ulong value = BitConverter.ToUInt64(bytes, 0);
+                return value.ToString("x16");
+            }
+        }
+    }
 
     public long LongRandom(long min, long max, Random rand)
     {

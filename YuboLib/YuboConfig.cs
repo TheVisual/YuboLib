@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using YuboLib.Extras;
+using static YuboLib.Extras.Utilities;
 
 namespace YuboLib;
 public class YuboConfig
@@ -26,7 +27,7 @@ public class YuboConfig
     public bool ProxySigner { get; set; } = false;
     public bool BandwithSaver { get; set; } = true;
     public int Timeout { get; set; }
-    public string android_id { get; set; }
+    public string android_id { get; set; } = AndroidIDGenerator.GenerateAndroidID();
     public string Username { get; set; }
     public string ro_product_brand { get; set; }
     public string ro_product_model { get; set; }
