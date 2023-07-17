@@ -23,4 +23,8 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore YuboLib/YuboLib.sln
     - name: Build
-      run: dotnet build YuboLib/YuboLib.sln --no-restore
+      run: dotnet build YuboLib/YuboLib.sln --no-restore 
+    - uses: actions/upload-artifact@v3
+      with:
+        name: my-artifact
+        path: YuboLib/bin/Debug/net7.0/YuboLib.dll
