@@ -26,5 +26,5 @@ jobs:
       run: dotnet build YuboLib/YuboLib.sln --no-restore 
     - uses: actions/upload-artifact@v3
       with:
-        name: my-artifact
+        name: YuboLib
         path: YuboLib/bin/Debug/net7.0/YuboLib.dll
