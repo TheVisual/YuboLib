@@ -23,3 +23,6 @@
 
 # Private Signer
 - The Public signer is very limited in terms of speed and ratelimits in future so you can purchase the private API emailing me @ WXVib0xpYkBwcm90b24ubWU= (Base64 decode it for the email (https://www.base64decode.org/))
+
+# Where do i find a compiled version?:
+- https://github.com/TheVisual/YuboLib/actions
