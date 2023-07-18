@@ -12,7 +12,7 @@
 - Look at ExampleEndpoint and its traces to undertand how the lib works
 
 # Public Signer
-- Yes the public signer in the program is usable but please don't use it anywhee but in this lib selling is prohibited and we will enforce limits if nessary.
+- Yes the public signer in the program is usable but please don't use it anywhere but in this lib selling is prohibited and we will enforce limits if nessary.
 - The API Key is YuboLibPublic
 
 
