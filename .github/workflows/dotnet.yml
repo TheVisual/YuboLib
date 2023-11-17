@@ -27,4 +27,4 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: YuboLib
-        path: YuboLib/bin/Debug/net7.0/YuboLib.dll
+        path: YuboLib/bin/Debug/net8.0/YuboLib.dll
