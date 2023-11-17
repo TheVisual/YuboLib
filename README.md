@@ -6,7 +6,7 @@
 
 # How can i contribute?
 - We are solely based off the community and my free time
-- Requirements you must know C# and understand NET 7
+- Requirements you must know C# and understand NET 8
 - Please format code to a professional maner
 - Look at ExampleEndpoint and its traces to undertand how the lib works
 
