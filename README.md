@@ -10,8 +10,5 @@
 - Please format code to a professional maner
 - Look at ExampleEndpoint and its traces to undertand how the lib works
 
-# Private Signer
-- You can purchase the private signer adding me on discord @ anNuYXBsbGM= (Base64 decode it for the discord username (https://www.base64decode.org/))
-
 # Where do i find a compiled version?
 - https://github.com/TheVisual/YuboLib/actions
